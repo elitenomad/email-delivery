@@ -34,7 +34,7 @@ module Email
         end
 
         unless bcc.nil?
-          personalizations_hash.merge!({ "bcc" => recepient_list(cc) })
+          personalizations_hash.merge!({ "bcc" => recepient_list(bcc) })
         end
 
         [

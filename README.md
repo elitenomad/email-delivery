@@ -102,6 +102,7 @@ Or install it yourself as:
                    end
                       
         output_hash = mail.dispatch
+        
         {
           "message": "to/cc/bcc email-ids are not valid. Please provide at least one valid to/cc/bcc email address.", 
           "status": 2
@@ -114,12 +115,17 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Issues
-    Mailgun setting up domain issues: So using the sandbox account where only authorized recepient list can recieve email.
+    Mailgun set-up issues with netregistry
 
+## Limitations
+    Mailgun is running with sandbox environment. So only Authorized receipients could receive email.
+    Service assumes any string which passes a email regex is a valid email.
+    Service handles only sending emails and won't inform about dropped messages or rejected messages.
+    
 ## Improvements
     Message builder for the mail clients based on the input.
-    Custom ExceptionHandler based on api error codes.
-
+    API Client exceptions based on api error codes with user friendly messages.
+    
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/elitenomad/email-delivery.
