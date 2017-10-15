@@ -4,7 +4,13 @@
     - initialize default mail-client(MailGun)
     - call 'do' method to send the emails.
     - provide fail-over mechanism
-
+    - Uses the SendGrid API error codes
+        200	OK	Your message is valid, but it is not queued to be delivered. †
+        202	ACCEPTED	Your message is both valid, and queued to be delivered.
+        400 Bad Request
+    - Uses the error codes from MailGun API
+        200	Everything worked as expected
+        400	Bad Request - Often missing a required parameter
 =end
 require 'email/delivery/mailgrun_client'
 require 'email/delivery/sendgrid_client'

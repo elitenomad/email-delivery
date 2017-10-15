@@ -1,8 +1,12 @@
 # Email::Delivery
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/email/delivery`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library 
+into a gem. Put your Ruby code in the file `lib/email/delivery`. To experiment with that code, run `bin/console` 
+for an interactive prompt.
 
-This gem is a service (Backend) that accepts the necessary information and sends emails. It provides an abstraction between two different e-mail sevice providers and quickly falls over to a working provider without affecting the users.
+This gem is a service (Backend) that accepts the necessary information and sends emails. It provides an abstraction 
+between two different e-mail service providers and quickly falls over to a working provider without affecting the users.
+It expects the credentials are set in the application the gem is imported.
 
 ## Installation
 
@@ -25,7 +29,7 @@ Or install it yourself as:
     Input: Hash
     {
         'from':'me@test.com',
-        'to':['you_1@test.com, you_2@test.com'],
+        'to':'you_1@test.com, you_2@test.com',
         'cc':'you_3@test.com',
         'bcc':['you_4@test.com', 'test_bcc2@mail.com'],
         'subject':'test subject',
@@ -34,18 +38,10 @@ Or install it yourself as:
     
     Output: Hash
     {
-        'status': 0 || %w(1 2 3 4 5)
+        'status': 0 || 4
         'message: 'success' || 'failure'
     }
     
-    Non-zero status code means it's a failure.
-    
-    1	from email-id invalid
-    2	to/cc/bcc email-id invalid
-    3	subject && text both are empty
-    4	email send failed (working)
-    5	email provider configuration not complete (working)
-
 ## Usage
 
     mail = Email::Delivery::Client.new do
@@ -78,9 +74,9 @@ Or install it yourself as:
     
          mail = Email::Delivery::Client.new do
                   from     'me@test.com'
-                  to       ["you@test.com", "you_1@test.com"]
-                  cc       "you_2@test.com"
-                  bcc      "you_3@test.com"
+                  to       'you@test.com', 'you_1@test.com'
+                  cc       'you_2@test.com'
+                  bcc      'you_3@test.com'
                   subject  'Test subject'
                   body     'Hey testing now...'
                end
@@ -94,9 +90,9 @@ Or install it yourself as:
     ### send email and receive error message
         mail = Email::Delivery::Client.new do
                       from     'me@test.com'
-                      to       []
-                      cc       "BlahBlah"
-                      bcc      "YoYo"
+                      to       ''
+                      cc       'BlahBlah'
+                      bcc      'YoYo'
                       subject  'Test subject'
                       body     'Hey testing now...'
                    end
@@ -104,7 +100,7 @@ Or install it yourself as:
         output_hash = mail.dispatch
         
         {
-          "message": "to/cc/bcc email-ids are not valid. Please provide at least one valid to/cc/bcc email address.", 
+          "message": "Error message returned from service provider", 
           "status": 2
         }
 
@@ -123,7 +119,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
     Service handles only sending emails and won't inform about dropped messages or rejected messages.
     
 ## Improvements
-    Message builder for the mail clients based on the input.
+    Message builder and formatter for the mail clients based on the input.
     API Client exceptions based on api error codes with user friendly messages.
     
 ## Contributing
